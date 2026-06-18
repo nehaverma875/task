@@ -64,7 +64,7 @@ export default function DashboardPage() {
         })}
       </div>
 
-      <section className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+      <section>
         <Card>
           <CardHeader>
             <CardTitle>Operational Focus</CardTitle>
@@ -76,14 +76,6 @@ export default function DashboardPage() {
                 <p className="mt-2 text-xl font-semibold">{["Capacity", "Delivery", "Pipeline"][index]}</p>
               </div>
             ))}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>RBAC Preview</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-muted-foreground">
-            Switch roles in the header to see menus and creator actions change immediately through Zustand state.
           </CardContent>
         </Card>
       </section>
