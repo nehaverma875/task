@@ -1,13 +1,14 @@
 # Operations Admin Dashboard
 
-Admin dashboard built from the assessment brief with Next.js, TypeScript, TanStack Query, Zustand, ShadCN UI, responsive layouts, RBAC, JWT auth, and MongoDB-backed API routes.
+Admin dashboard built from the assessment brief with Next.js, TypeScript, TanStack Query, Zustand, ShadCN UI, responsive layouts, JWT auth, and MongoDB-backed API routes.
 
 ## Stack
 
 - Next.js App Router
 - TypeScript
 - TanStack Query for server-state fetching and cache invalidation
-- Zustand for client UI/session state, including active role
+- Zustand for client UI/session state
+- Zukeeper for Zustand devtools inspection
 - ShadCN UI local components in `components/ui`
 - MongoDB Node.js driver for backend storage
 
@@ -20,7 +21,6 @@ Admin dashboard built from the assessment brief with Next.js, TypeScript, TanSta
 - Projects: listing, search, pagination, status filters, and detail view
 - Leads: new, assigned, and converted lead columns
 - Creator management: create, edit, activate, and deactivate
-- RBAC: Super Admin, Admin, and Agent menus/actions update dynamically
 
 ## Setup
 
@@ -55,14 +55,6 @@ The seed endpoint creates these users when the `users` collection is empty:
 | Admin | `admin@example.com` | `Password@123` |
 | Agent | `agent@example.com` | `Password@123` |
 
-## RBAC
-
-- Super Admin: all menus and all creator actions
-- Admin: dashboard, projects, leads, creators, and creator edit
-- Agent: dashboard, projects, and leads only
-
-Permissions are defined in `lib/rbac.ts`. After login, the JWT-authenticated user's role is stored in Zustand and drives menus/actions.
-
 ## Auth Flow
 
 - `POST /api/auth/login` verifies email/password and returns `{ user, token }`.
@@ -76,8 +68,8 @@ Permissions are defined in `lib/rbac.ts`. After login, the JWT-authenticated use
 ## Evaluation Criteria
 
 - Component Architecture: pages, layout shell, auth forms, UI primitives, API helpers, and domain logic are split into focused modules.
-- State Management: TanStack Query handles server state; Zustand handles auth, role, and sidebar UI state.
-- UI Quality: ShadCN UI components, responsive layout, role-aware navigation, dashboard cards, tables, filters, and forms.
+- State Management: TanStack Query handles server state; Zustand handles auth and sidebar UI state.
+- UI Quality: ShadCN UI components, responsive layout, dashboard cards, tables, filters, and forms.
 - Performance: paginated project API, cached queries, server-side MongoDB filtering/search, and lean JSON responses.
-- Scalability: route handlers are organized by domain, MongoDB access is centralized, RBAC permissions live in one config, and auth helpers are reusable.
+- Scalability: route handlers are organized by domain, MongoDB access is centralized, and auth helpers are reusable.
 - Code Quality: TypeScript types, reusable utilities, hashed passwords, JWT-protected APIs, lint/typecheck/build verification.

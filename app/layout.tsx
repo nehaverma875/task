@@ -4,7 +4,7 @@ import { QueryProvider } from "@/components/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "Operations Admin Dashboard",
-  description: "Next.js admin dashboard with MongoDB storage and RBAC."
+  description: "Next.js admin dashboard with MongoDB storage and JWT auth."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
