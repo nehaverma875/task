@@ -1,6 +1,8 @@
 "use client";
 
 import { create } from "zustand";
+import zukeeper from "zukeeper";
+import type { StateCreator, StoreApi, UseBoundStore } from "zustand";
 import type { AppUser, Role } from "@/types/domain";
 
 type AppState = {
@@ -16,7 +18,15 @@ type AppState = {
   setSidebarOpen: (open: boolean) => void;
 };
 
-export const useAppStore = create<AppState>((set) => ({
+type AppStore = UseBoundStore<StoreApi<AppState>>;
+
+declare global {
+  interface Window {
+    store?: AppStore;
+  }
+}
+
+const createAppStore: StateCreator<AppState> = (set) => ({
   role: "super-admin",
   user: null,
   token: null,
@@ -56,4 +66,12 @@ export const useAppStore = create<AppState>((set) => ({
   },
   setRole: (role) => set({ role }),
   setSidebarOpen: (sidebarOpen) => set({ sidebarOpen })
-}));
+});
+
+export const useAppStore = create<AppState>(
+  zukeeper(createAppStore) as StateCreator<AppState>
+);
+
+if (typeof window !== "undefined") {
+  window.store = useAppStore;
+}
